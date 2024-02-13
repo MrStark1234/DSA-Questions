@@ -14,3 +14,20 @@ function gcd(a, b) {
   return gcd(b, a % b);
 }
 console.log(gcd(48, 18));
+
+// let suppose gcd is (48, 18);
+
+// if b = 0 return a
+
+// else  b = 18 which is not equal to 0, we proceed to the next step.
+// gcd(b, a % b)
+// gcd(b = 18,  a = 48 % b = 18):
+// 48 % 18 gives 12, so  gcd(a = 18, b = 12).
+
+// gcd(b, a % b)
+// gcd(12, 18 % 12):
+// 18 % 12 gives 6, so  gcd(12, 6).
+
+// gcd(b, a % b)
+// gcd(6, 12 % 6):
+// 12 % 6 evaluates to 0, so it becomes gcd(6, 0)

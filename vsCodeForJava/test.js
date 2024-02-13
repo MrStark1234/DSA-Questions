@@ -148,20 +148,70 @@
 
 // console.log(printPattern(5));
 
-function printPyramid(N) {
-  for (let i = 1; i <= N; i++) {
-    let stars = "";
-    let space = "";
-    for (let s = 1; s <= N - i; s++) {
-      space += " ";
-    }
-    for (let j = 1; j <= 2 * i - 1; j++) {
-      stars += "*";
-    }
+// function printPyramid(N) {
+//   for (let i = 1; i <= N; i++) {
+//     let stars = "";
+//     let space = "";
+//     for (let s = 1; s <= N - i; s++) {
+//       space += " ";
+//     }
+//     for (let j = 1; j <= 2 * i - 1; j++) {
+//       stars += "*";
+//     }
 
-    console.log(space + stars);
+//     console.log(space + stars);
+//   }
+// }
+
+// // Example usage:
+// console.log(printPyramid(5));
+
+function countValidIntegers(constraints) {
+  let minValid = Number.MIN_SAFE_INTEGER;
+  let maxValid = Number.MAX_SAFE_INTEGER;
+
+  for (const constraint of constraints) {
+    const [type, x] = constraint;
+
+    if (type === 1) {
+      minValid = Math.max(minValid, x);
+    } else if (type === 2) {
+      maxValid = Math.min(maxValid, x);
+    } else if (type === 3) {
+      if (x >= minValid && x < maxValid) {
+        maxValid = x;
+      }
+    }
   }
+
+  return maxValid - minValid;
 }
 
-// Example usage:
-console.log(printPyramid(5));
+const constraints = [
+  [1, 5], // k must be greater than or equal to 5
+  [2, 10], // k must be less than 10
+  [3, 7], // k must be not equal to 7
+];
+
+// console.log(countValidIntegers(constraints)); // Output: 2 (6 and 8 are valid)
+
+function maxAvgSubArray(arr, k) {
+  let n = arr.length;
+  let sum = 0;
+
+  for (let i = 0; i < k; i++) {
+    sum += arr[i];
+  }
+
+  let maxAvg = sum / k;
+
+  for (let i = k; i < n; i++) {
+    sum += arr[i] - arr[i - k];
+    maxAvg = Math.max(maxAvg, sum / k);
+  }
+
+  return maxAvg;
+}
+
+console.log(maxAvgSubArray([1, 12, -5, -6, 50, 3], 4));
+console.log(maxAvgSubArray([1, 2, 3, 4, 5], 2));
