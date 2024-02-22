@@ -213,5 +213,5 @@ function maxAvgSubArray(arr, k) {
   return maxAvg;
 }
 
-console.log(maxAvgSubArray([1, 12, -5, -6, 50, 3], 4));
-console.log(maxAvgSubArray([1, 2, 3, 4, 5], 2));
+// console.log(maxAvgSubArray([1, 12, -5, -6, 50, 3], 4));
+// console.log(maxAvgSubArray([1, 2, 3, 4, 5], 2));
