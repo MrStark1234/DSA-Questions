@@ -166,52 +166,101 @@
 // // Example usage:
 // console.log(printPyramid(5));
 
-function countValidIntegers(constraints) {
-  let minValid = Number.MIN_SAFE_INTEGER;
-  let maxValid = Number.MAX_SAFE_INTEGER;
+// function countValidIntegers(constraints) {
+//   let minValid = Number.MIN_SAFE_INTEGER;
+//   let maxValid = Number.MAX_SAFE_INTEGER;
 
-  for (const constraint of constraints) {
-    const [type, x] = constraint;
+//   for (const constraint of constraints) {
+//     const [type, x] = constraint;
 
-    if (type === 1) {
-      minValid = Math.max(minValid, x);
-    } else if (type === 2) {
-      maxValid = Math.min(maxValid, x);
-    } else if (type === 3) {
-      if (x >= minValid && x < maxValid) {
-        maxValid = x;
-      }
-    }
-  }
+//     if (type === 1) {
+//       minValid = Math.max(minValid, x);
+//     } else if (type === 2) {
+//       maxValid = Math.min(maxValid, x);
+//     } else if (type === 3) {
+//       if (x >= minValid && x < maxValid) {
+//         maxValid = x;
+//       }
+//     }
+//   }
 
-  return maxValid - minValid;
-}
+//   return maxValid - minValid;
+// }
 
-const constraints = [
-  [1, 5], // k must be greater than or equal to 5
-  [2, 10], // k must be less than 10
-  [3, 7], // k must be not equal to 7
-];
+// const constraints = [
+//   [1, 5], // k must be greater than or equal to 5
+//   [2, 10], // k must be less than 10
+//   [3, 7], // k must be not equal to 7
+// ];
 
-// console.log(countValidIntegers(constraints)); // Output: 2 (6 and 8 are valid)
+// // console.log(countValidIntegers(constraints)); // Output: 2 (6 and 8 are valid)
 
-function maxAvgSubArray(arr, k) {
-  let n = arr.length;
-  let sum = 0;
+// function maxAvgSubArray(arr, k) {
+//   let n = arr.length;
+//   let sum = 0;
 
-  for (let i = 0; i < k; i++) {
-    sum += arr[i];
-  }
+//   for (let i = 0; i < k; i++) {
+//     sum += arr[i];
+//   }
 
-  let maxAvg = sum / k;
+//   let maxAvg = sum / k;
 
-  for (let i = k; i < n; i++) {
-    sum += arr[i] - arr[i - k];
-    maxAvg = Math.max(maxAvg, sum / k);
-  }
+//   for (let i = k; i < n; i++) {
+//     sum += arr[i] - arr[i - k];
+//     maxAvg = Math.max(maxAvg, sum / k);
+//   }
 
-  return maxAvg;
-}
+//   return maxAvg;
+// }
 
 // console.log(maxAvgSubArray([1, 12, -5, -6, 50, 3], 4));
 // console.log(maxAvgSubArray([1, 2, 3, 4, 5], 2));
+
+//https://leetcode.com/problems/arithmetic-subarrays/
+
+// var checkArithmeticSubarrays = function (nums, l, r) {
+//   let ans = [];
+//   for (let i = 0; i < l.length; i++) {
+//     let subarray = nums.slice(l[i], r[i] + 1);
+//     ans.push(check(subarray));
+//   }
+//   function check(arr) {
+//     arr.sort((a, b) => a - b);
+//     let diff = arr[1] - arr[0];
+//     for (let i = 2; i < arr.length; i++) {
+//       if (arr[i] - arr[i - 1] != diff) {
+//         return false;
+//       }
+//     }
+//     return true;
+//   }
+//   return ans;
+// };
+
+// function processData(input) {
+//   const lines = input.trim().split("\n");
+//   const n = parseInt(lines[0]);
+//   const sticks = lines[1].split(" ").map(Number);
+
+//   return maximizeFencePerimeter(n, sticks);
+// }
+function maximizeFencePerimeter(sticks, n) {
+  sticks.sort((a, b) => a - b);
+
+  let maxPerimeter = -1;
+
+  for (let i = n - 1; i >= 2; i--) {
+    if (sticks[i] <= sticks[i - 1] + sticks[i - 2]) {
+      let sum = 0;
+      for (let j = i; j >= 0; j--) {
+        sum += sticks[j];
+      }
+      maxPerimeter = Math.max(maxPerimeter, sum);
+    }
+  }
+
+  return maxPerimeter;
+}
+
+console.log(maximizeFencePerimeter([2, 8, 41, 12, 4, 1], 6)); // Output: 27
+// console.log(processData("6 /n 2 8 41 12 4 1"));
