@@ -264,3 +264,17 @@ function maximizeFencePerimeter(sticks, n) {
 
 console.log(maximizeFencePerimeter([2, 8, 41, 12, 4, 1], 6)); // Output: 27
 // console.log(processData("6 /n 2 8 41 12 4 1"));
+
+var getIntersectionNode = function (headA, headB) {
+  let curA = headA;
+  let curB = headB;
+
+  while (curA !== curB) {
+    curA = curA === null ? headB : curA.next;
+    curB = curB === null ? headA : curB.next;
+  }
+
+  return curA;
+};
+
+console.log(getIntersectionNode([4, 1, 8, 4, 5], [5, 6, 1, 8, 4, 5]));
