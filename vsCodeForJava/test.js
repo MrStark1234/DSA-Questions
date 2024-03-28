@@ -262,7 +262,7 @@ function maximizeFencePerimeter(sticks, n) {
   return maxPerimeter;
 }
 
-console.log(maximizeFencePerimeter([2, 8, 41, 12, 4, 1], 6)); // Output: 27
+// console.log(maximizeFencePerimeter([2, 8, 41, 12, 4, 1], 6)); // Output: 27
 // console.log(processData("6 /n 2 8 41 12 4 1"));
 
 var getIntersectionNode = function (headA, headB) {
@@ -277,4 +277,20 @@ var getIntersectionNode = function (headA, headB) {
   return curA;
 };
 
-console.log(getIntersectionNode([4, 1, 8, 4, 5], [5, 6, 1, 8, 4, 5]));
+// console.log(getIntersectionNode([4, 1, 8, 4, 5], [5, 6, 1, 8, 4, 5]));
+
+function generateNumber(n) {
+  let queue = [2, 3, 5];
+  for (let i = 1; i < n; i++) {
+    let num = queue.shift();
+    queue.push(num * 10 + 2);
+    queue.push(num * 10 + 3);
+    queue.push(num * 10 + 5);
+    // queue.sort((a, b) => a - b); // Ensure the queue remains sorted
+  }
+  return queue[0];
+}
+
+// Example usage:
+const n = 7;
+console.log(generateNumber(n)); // Output will be 23
