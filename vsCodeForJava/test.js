@@ -237,33 +237,12 @@
 //   return ans;
 // };
 
-// function processData(input) {
-//   const lines = input.trim().split("\n");
-//   const n = parseInt(lines[0]);
-//   const sticks = lines[1].split(" ").map(Number);
-
-//   return maximizeFencePerimeter(n, sticks);
-// }
-function maximizeFencePerimeter(sticks, n) {
-  sticks.sort((a, b) => a - b);
-
-  let maxPerimeter = -1;
-
-  for (let i = n - 1; i >= 2; i--) {
-    if (sticks[i] <= sticks[i - 1] + sticks[i - 2]) {
-      let sum = 0;
-      for (let j = i; j >= 0; j--) {
-        sum += sticks[j];
-      }
-      maxPerimeter = Math.max(maxPerimeter, sum);
-    }
+class ListNode {
+  constructor(val) {
+    this.val = val;
+    this.next = null;
   }
-
-  return maxPerimeter;
 }
-
-// console.log(maximizeFencePerimeter([2, 8, 41, 12, 4, 1], 6)); // Output: 27
-// console.log(processData("6 /n 2 8 41 12 4 1"));
 
 var getIntersectionNode = function (headA, headB) {
   let curA = headA;
@@ -277,9 +256,21 @@ var getIntersectionNode = function (headA, headB) {
   return curA;
 };
 
-// console.log(getIntersectionNode([4, 1, 8, 4, 5], [5, 6, 1, 8, 4, 5]));
+const listA = new ListNode(4);
+listA.next = new ListNode(1);
+listA.next.next = new ListNode(8);
+listA.next.next.next = new ListNode(4);
+listA.next.next.next.next = new ListNode(5);
+
+const listB = new ListNode(5);
+listB.next = new ListNode(6);
+listB.next.next = new ListNode(1);
+listB.next.next.next = listA.next.next; // Intersect at node with value 8
+
+// console.log(getIntersectionNode(listA, listB));
 
 function generateNumber(n) {
+  //Ho gaya hai
   let queue = [2, 3, 5];
   for (let i = 1; i < n; i++) {
     let num = queue.shift();
@@ -293,4 +284,26 @@ function generateNumber(n) {
 
 // Example usage:
 const n = 7;
-console.log(generateNumber(n)); // Output will be 23
+// console.log(generateNumber(n)); // Output will be 23
+
+function swap(arr, i, j) {
+  const temp = arr[i];
+  arr[i] = arr[j];
+  arr[j] = temp;
+}
+
+function rec(arr, i, n) {
+  if (i > n / 2) {
+    return arr;
+  }
+  swap(arr, i, n - i - 1);
+  return rec(arr, i + 1, n);
+}
+// console.log(rec([1, 2, 3, 4, 5], 0, 5));
+
+function rec2(str, i, n) {
+  if (i > n / 2) return true;
+  if (str[i] !== str[n - i - 1]) return false;
+  return rec2(str, i + 1, n);
+}
+console.log(rec2("MADAM", 0, 5));
