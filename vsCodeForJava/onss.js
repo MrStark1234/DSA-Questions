@@ -54,24 +54,65 @@
 
 // console.log(getIntersectionNode(listA, listB));
 
-// const subArray = (arr, k) => {
-//   let n = arr.length;
-//   let left = 0;
-//   let right = 0;
-//   let max = 0;
-//   let sum = arr[0];
+const subArray = (arr, k) => {
+  let n = arr.length;
+  let left = 0;
+  let right = 0;
+  let max = 0;
+  let sum = arr[0];
 
-//   while (right < n) {
-//     while (left <= right && sum > k) {
-//       sum -= arr[left];
-//       left++;
-//     }
+  while (right < n) {
+    while (left <= right && sum > k) {
+      sum -= arr[left];
+      left++;
+    }
 
-//     if (sum === k) max = Math.max(max, right - left + 1);
+    if (sum === k) max = Math.max(max, right - left + 1);
 
-//     right++;
-//     if (right < n) sum += arr[right];
-//   }
-//   return max;
-// };
+    right++;
+    if (right < n) sum += arr[right];
+  }
+  return max;
+};
 // console.log(subArray([1, 2, 1, 1, 2, 3, 5, 2], 5));
+console.log(subArray([1, -2, 3, 4, -1, 2, 1, -5, 4], 4));
+
+function findLargestSubarray(arr, k) {
+  if (k <= 0 || k > arr.length) {
+    return "Invalid value of k";
+  }
+
+  let maxSum = 0;
+  let startIndex = 0;
+
+  // Calculate sum of first subarray of size k
+  for (let i = 0; i < k; i++) {
+    maxSum += arr[i];
+  }
+
+  let currentSum = maxSum;
+
+  // Iterate through the array to find the maximum sum subarray of size k
+  for (let i = k; i < arr.length; i++) {
+    currentSum += arr[i] - arr[i - k]; // Update current sum by adding the next element and subtracting the first element of the previous subarray
+    if (currentSum > maxSum) {
+      maxSum = currentSum;
+      startIndex = i - k + 1; // Update the start index of the largest subarray
+    }
+  }
+
+  // Extract the largest subarray
+  const largestSubarray = arr.slice(startIndex, startIndex + k);
+
+  return largestSubarray;
+}
+
+// Example usage:
+const arr = [1, -2, 3, 4, -1, 2, 1, -5, 4];
+const k = 4;
+// console.log(
+//   "Largest contiguous subarray of size",
+//   k,
+//   ":",
+//   findLargestSubarray(arr, k)
+// );
